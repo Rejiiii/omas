@@ -1,10 +1,8 @@
 package com.omasystem.omas.Service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.omasystem.omas.Entity.User;
-import com.omasystem.omas.Entity.tbl_user;
 import com.omasystem.omas.Exceptions.UserNotFoundException;
 import com.omasystem.omas.Repo.UserRepository;
 
@@ -20,7 +18,7 @@ public class AuthService {
     public String signIn(String username, String password) {
         // Find user by username
         try{
-            tbl_user user = userRepository.findByUsername(username)
+            User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new UserNotFoundException("User not found"));
     
 
