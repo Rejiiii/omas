@@ -1,9 +1,19 @@
-package com.omasystem.omas.Dto;
+package com.omasystem.omas.Entity;
 
-public class SignInDto {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class tbl_user {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long emp_id;
     private String username;
     private String password;
 
+    
     public String getUsername(){
         return this.username;
     }
@@ -19,4 +29,5 @@ public class SignInDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
