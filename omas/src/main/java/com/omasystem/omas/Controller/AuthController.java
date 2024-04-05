@@ -1,27 +1,40 @@
 package com.omasystem.omas.Controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.omasystem.omas.Dto.SignInDto;
-import com.omasystem.omas.Service.AuthService;
+
+import com.omasystem.omas.Entity.AuthenticationRequest;
+import com.omasystem.omas.Entity.AuthenticationResponse;
+import com.omasystem.omas.Entity.RegisterRequest;
+import com.omasystem.omas.Service.AuthenticationService;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
     
-    private final AuthService authService;
+    private final AuthenticationService service;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    @PostMapping("/Register")
+    public ResponseEntity<AuthenticationResponse> register (
+        @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.register(request));
     }
 
-    @GetMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestBody SignInDto signInDto) {
-        String token = authService.signIn(signInDto.getUsername(), signInDto.getPassword());
-        return ResponseEntity.ok(token);
+    @PostMapping("/Authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate (
+        @RequestBody AuthenticationRequest request
+    ) {
+        return ResponseEntity.ok(service.authenticate(request));
     }
+    
 }
+
